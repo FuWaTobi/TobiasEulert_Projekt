@@ -10,3 +10,4 @@ Dann sucht man sich über ein Auswahlfenster die Gegenstände und personen aus d
 Diese werden dann in die weiße Fläche geladen, welche man dann per Drag und Drop an die richtige stelle ziehen kann. Zusätzlich werden direkt die ausgewählten Dinge auf der Liste angezeigt und gespeichert
 
 Später kann man dann eine Szene auswählen, wobei einem dann die Dinge aufgelistet und gezeigt werden.
+Man könnte innerhalb der Liste noch eigene Einträge einschreiben oder vorhande Dinge Löschen.
