@@ -8,11 +8,11 @@
   </head>
   <body>
     <div class="sidebar">
-      <h2>Meine Szenen</h2>
+      <h2>Menü</h2>
       <ul>
-        <li><a href="#">Bearbeiten</a></li>
-        <li><a href="#">Hinzufügen</a></li>
-        <li><a href="#">Speichern</a></li>
+        <li><a href="#">Meine Szenen</a></li>
+        <li><a href="#">Neue Szene</a></li>
+        <li><a href="#">Szene Exportieren</a></li>
       </ul>
     </div>
     
@@ -20,55 +20,70 @@
       <div class="Titelll">
         <h1> Dein Szenen Inventar </h1>
       </div>
-      
-      <div class="spacer"></div>
-      
+            
       <form class="eingabe">
         <div class="Szene">
-          <label>Titel deiner Szene:</label>
-          <input type="text" />
-          <label> weitere Infos zu deiner Szene</label>
-          <input type="text" />
-          <button type="submit">Szene hinzufügen</button>
+          <label for="titel">Titel deiner Szene:</label>
+          <input type="text" id="titel" />
+          <label for="infos">Weitere Infos zu deiner Szene:</label>
+          <input type="text" id="infos" />
         </div>
       </form>
       
       <div class="icons">
         <a href="#">
-          <img src="images/kameraBlau.svg" alt="Kamera1" class="icon-svg" />
+          <img src="images/kameraBlau.svg" alt="KameraBlau" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/kameraRot.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/kameraRot.svg" alt="kameraRot" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/kameraGruen.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/kameraGruen.svg" alt="kameraGruen" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/faceGelb.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/faceGelb.svg" alt="faceGelb" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/faceBlau.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/faceBlau.svg" alt="faceBlau" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/faceRot.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/faceRot.svg" alt="faceRot" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/Licht1.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/Licht1.svg" alt="Licht1" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/Licht2.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/Licht2.svg" alt="Licht2" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/Licht3.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/Licht3.svg" alt="Licht3" class="icon-svg" />
         </a>
         <a href="#">
-          <img src="images/Mikrofon.svg" alt="Kamera2" class="icon-svg" />
+          <img src="images/Mikrofon.svg" alt="Mikrofon" class="icon-svg" />
         </a>
       </div>
     </div>
       
-    <canvas id="myCanvas"></canvas>
-  </div>
+      <canvas id="myCanvas"></canvas>
+      
+      <div class="box">
+        <h2>Liste der Elemente</h2>
+        <ul id="itemList">
+          <li>Element 1 <button class="delete-btn">X</button></li>
+          <li>Element 2 <button class="delete-btn">X</button></li>
+          <li>Element 3 <button class="delete-btn">X</button></li>
+          <li>Element 4 <button class="delete-btn">X</button></li>
+          <li>Element 5 <button class="delete-btn">X</button></li>
+          <li>Element 6 <button class="delete-btn">X</button></li>
+          <li>Element 7 <button class="delete-btn">X</button></li>
+        </ul>
+      </div>
+
+      <div class="buttons">
+        <button type="submit">Szene speichern</button>
+        <button type="submit">Neue Szene</button>
+      </div>
+      
     </div>
   </body>
 </html>

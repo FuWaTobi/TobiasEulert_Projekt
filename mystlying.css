@@ -1,14 +1,57 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #dfe8ef;
+    background-color: #dbd3c07d;
+}
+
+.Titelll {
+    margin-top: -40px;
+    margin-left: -40px;
+    font-size: 24px;
+    color: #000000;
+}
+
+.eingabe {
+    margin-top: 20px;
+    margin-left: -40px;
+    font-size: 16px;
+    color: #000000;
+}
+
+#titel {
+    margin-right: 223px;
+}
+
+#infos {
+    display: inline-block;
+    width: 28%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.Szene label {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #000000;
+}
+
+.Szene input[type="text"] {
+    display: inline-block;
+    width: 15%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #8c8f667b;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 .sidebar {
     width: 160px;
     height: 100vh;
-    background-color: #8f9ca9;
-    color: rgb(5, 28, 62);
+    background-color: #a7ab6b7b;
+    color: rgb(0, 0, 0);
     position: fixed;
     top: 0;
     left: 0;
@@ -17,7 +60,7 @@ body {
 }
 
 .sidebar h2 {
-    margin-top: 0;
+    margin-top: 50px;
 }
 
 .sidebar ul {
@@ -30,7 +73,7 @@ body {
 }
 
 .sidebar ul li a {
-    color: rgb(5, 28, 62);
+    color: rgb(0, 0, 0);
     text-decoration: none;
 }
 
@@ -39,12 +82,12 @@ body {
 }
 
 .content {
-    margin-left: 270px; /* Space for the sidebar */
+    margin-left: 270px;
     padding: 30px;
 }
 
 h1 {
-    color: #34495e;
+    color: #000000;
 }
 
 .icons {
@@ -65,16 +108,82 @@ h1 {
 }
 
 .icons a:hover img.icon-svg {
-    opacity: 0.5; /* Change opacity on hover */
+    opacity: 0.5;
 }
 
 #myCanvas {
     position: relative;
     left: 260px;
-    width: 800px; /* One third of the page width */
-    height: 400px; /* Adjust the height as needed */
-    background-color: #ffffff; /* Optional: Set a background color */
-    border: 2px solid #000000; /* Optional: Add a border */
-    margin-top: 10px; /* Space above the canvas */
-    
+    width: 800px;
+    height: 400px;
+    background-color: #ffffff;
+    border: 2px solid #8c8f667b;
+    margin-top: 10px;
+    margin-bottom: 35px;
+    float: left;
+}
+
+.box {
+    margin-top: 10px;
+    width: 18%;
+    margin-right: 40px;
+    float: right;
+    background-color: #fefdfd;
+    border: 1px solid #ccc;
+    padding: 30px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.box h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.box ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.box ul li {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 10px;
+    float: right;
+    margin-right: 40px;
+}
+
+.buttons button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.buttons button:hover {
+    background-color: #45a049;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 2px 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
 }
