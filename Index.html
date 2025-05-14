@@ -7,6 +7,8 @@
     <title>Szenen-Inventar</title>
     <link rel="stylesheet" href="mystlying.css" />
     <script src="java.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   </head>
   <body>
     <div class="sidebar">
@@ -16,8 +18,9 @@
           <a href="#" id="toggleDropdown">Meine Szenen</a>
           <ul class="dropdown" id="dropdownMenu"></ul>
         </li>
-        <li><a href="#">Neue Szene</a></li>
-        <li><a href="#">Szene Exportieren</a></li>
+        <li><a href="#" id="sidebarNewScene">Neue Szene</a></li>
+        <li><a href="#" id="exportScenesLink">Szene Exportieren</a></li>
+
       </ul>
     </div>
 
@@ -33,10 +36,18 @@
       <input type="text" id="titel" />
       <label for="infos">Weitere Infos zu deiner Szene:</label>
       <input type="text" id="infos" />
-      <div class="buttons">
-        <button type="button" id="saveButton">Szene speichern</button>
-        <button type="button" id="newSceneButton">Neue Szene</button>
-      </div>
+      <div class="button-row">
+  <div class="key-help">
+    <strong>W/S</strong> = Skalieren<br>
+    <strong>A/D</strong> = Rotieren
+  </div>
+  <div class="buttons">
+    <button type="button" id="saveButton">Szene speichern</button>
+    <button type="button" id="newSceneButton">Neue Szene</button>
+  </div>
+</div>
+
+
     </div>
   </form>
 
@@ -71,7 +82,7 @@
 <div id="contextMenu">
   <button id="deleteSceneButton">Szene löschen</button>
 </div>
-```
+
 
   </body>
 </html>

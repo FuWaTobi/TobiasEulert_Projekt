@@ -10,6 +10,7 @@ const newSceneButton = document.getElementById("newSceneButton");
 const icons = document.getElementsByClassName("icon-svg");
 const contextMenu = document.getElementById("contextMenu");
 const deleteSceneButton = document.getElementById("deleteSceneButton");
+const sidebarNewScene = document.getElementById("sidebarNewScene");
 
 let sceneData = JSON.parse(localStorage.getItem("sceneData")) || [];
 let currentScene = { szenenName: "", szenenInfo: "", Objekte: [] };
@@ -158,6 +159,19 @@ newSceneButton.addEventListener("click", () => {
   drawCanvas();
 });
 
+if (sidebarNewScene) {
+  sidebarNewScene.addEventListener("click", (e) => {
+    e.preventDefault();
+    currentScene = { szenenName: "", szenenInfo: "", Objekte: [] };
+    titelInput.value = "";
+    infosInput.value = "";
+    canvasObjects = [];
+    activeIndex = null;
+    updateItemList();
+    drawCanvas();
+  });
+}
+
 // Szene-Liste klicken
 function addSceneLinkFunctionality() {
   const sceneLinks = document.querySelectorAll(".scene-link");
@@ -297,4 +311,118 @@ function showMessage(msg) {
   box.style.zIndex = 9999;
   document.body.appendChild(box);
   setTimeout(() => box.remove(), 2000);
+}
+
+const exportScenesLink = document.getElementById("exportScenesLink");
+exportScenesLink.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await exportToPDF();
+});
+
+async function exportToPDF() {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+  const pageHeight = pdf.internal.pageSize.height;
+  const margin = 10;
+  const rowHeight = 60;
+  let y = margin;
+
+  const widths = {
+    szene: 20,
+    bild: 70,
+    info: 50,
+    liste: 40
+  };
+
+  // Tabellenkopf
+  pdf.setFontSize(10);
+  pdf.setFont(undefined, "bold");
+  pdf.text("Szene", margin + 2, y + 5);
+  pdf.text("Bild", margin + widths.szene + 2, y + 5);
+  pdf.text("Info", margin + widths.szene + widths.bild + 2, y + 5);
+  pdf.text("Elemente", margin + widths.szene + widths.bild + widths.info + 2, y + 5);
+  pdf.setFont(undefined, "normal");
+  y += 8;
+
+  for (let i = 0; i < sceneData.length; i++) {
+    const scene = sceneData[i];
+
+    // Canvas vorbereiten
+    const exportCanvas = document.createElement("canvas");
+    exportCanvas.width = 300;
+    exportCanvas.height = 200;
+    const ctx = exportCanvas.getContext("2d");
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+
+    const scaleFactor = 0.3;
+
+    for (const obj of scene.Objekte) {
+      const img = new Image();
+      img.src = `images/${obj.objektName}.svg`;
+
+      await new Promise(resolve => {
+        img.onload = () => {
+          const x = obj.x * scaleFactor;
+          const y = obj.y * scaleFactor;
+          const scale = (obj.scale || 1) * scaleFactor;
+          const rotation = (obj.rotation || 0) * Math.PI / 180;
+          const size = 50 * scale;
+
+          ctx.save();
+          ctx.translate(x, y);
+          ctx.rotate(rotation);
+          ctx.drawImage(img, -size / 2, -size / 2, size, size);
+          ctx.restore();
+          resolve();
+        };
+      });
+    }
+
+    const imgData = exportCanvas.toDataURL("image/png");
+
+    // Rahmen korrekt zeichnen
+    pdf.setDrawColor(0, 0, 0);
+    pdf.setLineWidth(0.5);
+
+    const cols = [widths.szene, widths.bild, widths.info, widths.liste];
+    let colX = margin;
+    for (const colWidth of cols) {
+      pdf.rect(colX, y, colWidth, rowHeight);
+      colX += colWidth;
+    }
+
+    // Inhalte
+    pdf.setFontSize(10);
+    pdf.text(`${i + 1}`, margin + 2, y + 6);
+
+    pdf.addImage(imgData, "PNG", margin + widths.szene + 2, y + 2, widths.bild - 4, rowHeight - 4);
+
+    const infoText = pdf.splitTextToSize(scene.szenenInfo || "-", widths.info - 4);
+    pdf.setFontSize(8);
+    pdf.text(infoText, margin + widths.szene + widths.bild + 2, y + 6);
+
+    const elemente = scene.Objekte.map(o => `- ${o.objektName}`);
+    const listeText = pdf.splitTextToSize(elemente.join("\n"), widths.liste - 4);
+    pdf.text(listeText, margin + widths.szene + widths.bild + widths.info + 2, y + 6);
+
+    y += rowHeight;
+
+    if (y + rowHeight > pageHeight - margin) {
+      pdf.addPage();
+      y = margin;
+
+      pdf.setFont(undefined, "bold");
+      pdf.text("Szene", margin + 2, y + 5);
+      pdf.text("Bild", margin + widths.szene + 2, y + 5);
+      pdf.text("Info", margin + widths.szene + widths.bild + 2, y + 5);
+      pdf.text("Elemente", margin + widths.szene + widths.bild + widths.info + 2, y + 5);
+      pdf.setFont(undefined, "normal");
+      y += 8;
+    }
+  }
+
+  pdf.save("szenen-export.pdf");
 }
