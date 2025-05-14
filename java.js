@@ -1,4 +1,3 @@
-// Initialisieren
 const dropdownMenu = document.getElementById("dropdownMenu");
 const itemList = document.getElementById("itemList");
 const canvas = document.getElementById("myCanvas");
@@ -17,7 +16,7 @@ let currentScene = { szenenName: "", szenenInfo: "", Objekte: [] };
 let canvasObjects = [];
 let activeIndex = null;
 
-// Canvas skalieren
+
 function resizeCanvas() {
   const width = Math.min(window.innerWidth - 400, 900);
   const height = 400;
@@ -33,7 +32,7 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-// Icon hinzufügen
+
 for (let icon of icons) {
   icon.addEventListener("click", () => {
     const objektName = icon.alt;
@@ -50,7 +49,6 @@ for (let icon of icons) {
   });
 }
 
-// Zeichnen
 function drawCanvas() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   canvasObjects.forEach((obj, index) => {
@@ -79,7 +77,7 @@ function drawCanvas() {
   });
 }
 
-// Liste aufbauen
+
 function updateItemList() {
   itemList.innerHTML = "";
   canvasObjects.forEach((obj, index) => {
@@ -113,7 +111,7 @@ function updateItemList() {
   });
 }
 
-// Szene speichern
+
 saveButton.addEventListener("click", () => {
   const name = titelInput.value.trim();
   if (!name) {
@@ -148,7 +146,6 @@ saveButton.addEventListener("click", () => {
   localStorage.setItem("sceneData", JSON.stringify(sceneData));
 });
 
-// Neue Szene
 newSceneButton.addEventListener("click", () => {
   currentScene = { szenenName: "", szenenInfo: "", Objekte: [] };
   titelInput.value = "";
@@ -172,7 +169,6 @@ if (sidebarNewScene) {
   });
 }
 
-// Szene-Liste klicken
 function addSceneLinkFunctionality() {
   const sceneLinks = document.querySelectorAll(".scene-link");
   sceneLinks.forEach((link, index) => {
@@ -195,7 +191,7 @@ function addSceneLinkFunctionality() {
   });
 }
 
-// Szene-Liste beim Start laden
+
 function loadScenes() {
   dropdownMenu.innerHTML = "";
   sceneData.forEach(scene => {
@@ -205,7 +201,7 @@ function loadScenes() {
 }
 loadScenes();
 
-// Drag & Drop
+// Drag & Drop KI
 let dragTarget = null;
 let offsetX, offsetY;
 
@@ -219,7 +215,7 @@ canvas.addEventListener("mousedown", (e) => {
     const centerX = obj.x;
     const centerY = obj.y;
     const targetHeight = 50 * obj.scale;
-    const ratio = 1; // Annahme: gleichmäßig
+    const ratio = 1; 
     const targetWidth = targetHeight * ratio;
 
     const left = centerX - targetWidth / 2;
@@ -251,8 +247,8 @@ canvas.addEventListener("mousemove", (e) => {
 canvas.addEventListener("mouseup", () => {
   dragTarget = null;
 });
+// Drag & Drop Ende KI
 
-// Szenen löschen per Kontextmenü
 let contextTargetIndex = null;
 dropdownMenu.addEventListener("contextmenu", (e) => {
   e.preventDefault();
@@ -282,7 +278,7 @@ document.addEventListener("click", () => {
   contextMenu.style.display = "none";
 });
 
-// Tastatursteuerung: w/s (Skalierung), a/d (Rotation)
+
 document.addEventListener("keydown", (e) => {
   if (activeIndex === null) return;
   const obj = canvasObjects[activeIndex];
@@ -295,7 +291,7 @@ document.addEventListener("keydown", (e) => {
   drawCanvas();
 });
 
-// Feedback-Nachricht
+
 function showMessage(msg) {
   let box = document.createElement("div");
   box.innerText = msg;
@@ -313,11 +309,14 @@ function showMessage(msg) {
   setTimeout(() => box.remove(), 2000);
 }
 
+
+// Export to PDF KI
 const exportScenesLink = document.getElementById("exportScenesLink");
 exportScenesLink.addEventListener("click", async (e) => {
   e.preventDefault();
   await exportToPDF();
 });
+
 
 async function exportToPDF() {
   const { jsPDF } = window.jspdf;
@@ -335,7 +334,7 @@ async function exportToPDF() {
     liste: 40
   };
 
-  // Tabellenkopf
+ 
   pdf.setFontSize(10);
   pdf.setFont(undefined, "bold");
   pdf.text("Szene", margin + 2, y + 5);
@@ -348,7 +347,7 @@ async function exportToPDF() {
   for (let i = 0; i < sceneData.length; i++) {
     const scene = sceneData[i];
 
-    // Canvas vorbereiten
+    
     const exportCanvas = document.createElement("canvas");
     exportCanvas.width = 300;
     exportCanvas.height = 200;
@@ -383,7 +382,7 @@ async function exportToPDF() {
 
     const imgData = exportCanvas.toDataURL("image/png");
 
-    // Rahmen korrekt zeichnen
+   
     pdf.setDrawColor(0, 0, 0);
     pdf.setLineWidth(0.5);
 
@@ -394,7 +393,7 @@ async function exportToPDF() {
       colX += colWidth;
     }
 
-    // Inhalte
+    
     pdf.setFontSize(10);
     pdf.text(`${i + 1}`, margin + 2, y + 6);
 
@@ -426,3 +425,4 @@ async function exportToPDF() {
 
   pdf.save("szenen-export.pdf");
 }
+// Export to PDF Ende KI
