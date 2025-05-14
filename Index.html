@@ -1,89 +1,77 @@
 <!DOCTYPE html>
+
 <html lang="de">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Szenen-Inventar</title>
     <link rel="stylesheet" href="mystlying.css" />
+    <script src="java.js" defer></script>
   </head>
   <body>
     <div class="sidebar">
       <h2>Menü</h2>
       <ul>
-        <li><a href="#">Meine Szenen</a></li>
+        <li>
+          <a href="#" id="toggleDropdown">Meine Szenen</a>
+          <ul class="dropdown" id="dropdownMenu"></ul>
+        </li>
         <li><a href="#">Neue Szene</a></li>
         <li><a href="#">Szene Exportieren</a></li>
       </ul>
     </div>
-    
-    <div class="content">
-      <div class="Titelll">
-        <h1> Dein Szenen Inventar </h1>
-      </div>
-            
-      <form class="eingabe">
-        <div class="Szene">
-          <label for="titel">Titel deiner Szene:</label>
-          <input type="text" id="titel" />
-          <label for="infos">Weitere Infos zu deiner Szene:</label>
-          <input type="text" id="infos" />
-        </div>
-      </form>
-      
-      <div class="icons">
-        <a href="#">
-          <img src="images/kameraBlau.svg" alt="KameraBlau" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/kameraRot.svg" alt="kameraRot" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/kameraGruen.svg" alt="kameraGruen" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/faceGelb.svg" alt="faceGelb" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/faceBlau.svg" alt="faceBlau" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/faceRot.svg" alt="faceRot" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/Licht1.svg" alt="Licht1" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/Licht2.svg" alt="Licht2" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/Licht3.svg" alt="Licht3" class="icon-svg" />
-        </a>
-        <a href="#">
-          <img src="images/Mikrofon.svg" alt="Mikrofon" class="icon-svg" />
-        </a>
-      </div>
-    </div>
-      
-      <canvas id="myCanvas"></canvas>
-      
-      <div class="box">
-        <h2>Liste der Elemente</h2>
-        <ul id="itemList">
-          <li>Element 1 <button class="delete-btn">X</button></li>
-          <li>Element 2 <button class="delete-btn">X</button></li>
-          <li>Element 3 <button class="delete-btn">X</button></li>
-          <li>Element 4 <button class="delete-btn">X</button></li>
-          <li>Element 5 <button class="delete-btn">X</button></li>
-          <li>Element 6 <button class="delete-btn">X</button></li>
-          <li>Element 7 <button class="delete-btn">X</button></li>
-        </ul>
-      </div>
 
+```
+<div class="content">
+  <div class="Titelll">
+    <h1>Dein Szenen Inventar</h1>
+  </div>
+
+  <form class="eingabe">
+    <div class="Szene">
+      <label id="titelS" for="titel">Titel deiner Szene:</label>
+      <input type="text" id="titel" />
+      <label for="infos">Weitere Infos zu deiner Szene:</label>
+      <input type="text" id="infos" />
       <div class="buttons">
-        <button type="submit">Szene speichern</button>
-        <button type="submit">Neue Szene</button>
+        <button type="button" id="saveButton">Szene speichern</button>
+        <button type="button" id="newSceneButton">Neue Szene</button>
       </div>
-      
     </div>
+  </form>
+
+  <div class="icons">
+    <img src="images/kameraBlau.svg" alt="KameraBlau" class="icon-svg" />
+    <img src="images/kameraRot.svg" alt="kameraRot" class="icon-svg" />
+    <img src="images/kameraGruen.svg" alt="kameraGruen" class="icon-svg" />
+    <img src="images/faceGelb.svg" alt="faceGelb" class="icon-svg" />
+    <img src="images/faceBlau.svg" alt="faceBlau" class="icon-svg" />
+    <img src="images/faceRot.svg" alt="faceRot" class="icon-svg" />
+    <img src="images/Licht1.svg" alt="Licht1" class="icon-svg" />
+    <img src="images/Licht2.svg" alt="Licht2" class="icon-svg" />
+    <img src="images/Licht3.svg" alt="Licht3" class="icon-svg" />
+    <img src="images/Mikrofon.svg" alt="Mikrofon" class="icon-svg" />
+  </div>
+
+  <div class="canvas-container">
+    <canvas id="myCanvas"></canvas>
+
+    <div class="box">
+      <h2>Liste der Elemente</h2>
+      <ul id="itemList"></ul>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>© 2025 Szenen-Inventar. Alle Rechte vorbehalten.</p>
+  <p>Impressum | Datenschutz</p>
+</div>
+
+<div id="contextMenu">
+  <button id="deleteSceneButton">Szene löschen</button>
+</div>
+```
+
   </body>
 </html>
