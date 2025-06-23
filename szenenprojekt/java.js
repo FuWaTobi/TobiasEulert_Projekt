@@ -131,6 +131,10 @@ saveButton.addEventListener("click", () => {
     }))
   };
 
+  console.log("Debug Szene wird gespeichert:", newScene);
+  saveToServer(newScene);
+
+
   const index = sceneData.findIndex(scene => scene.szenenName === name);
   if (index >= 0) {
     sceneData[index] = newScene;
@@ -143,7 +147,6 @@ saveButton.addEventListener("click", () => {
   }
 
   currentScene = newScene;
-  localStorage.setItem("sceneData", JSON.stringify(sceneData));
 });
 
 newSceneButton.addEventListener("click", () => {
@@ -192,14 +195,6 @@ function addSceneLinkFunctionality() {
 }
 
 
-function loadScenes() {
-  dropdownMenu.innerHTML = "";
-  sceneData.forEach(scene => {
-    dropdownMenu.innerHTML += `<li><a href="#" class="scene-link">${scene.szenenName}</a></li>`;
-  });
-  addSceneLinkFunctionality();
-}
-loadScenes();
 
 // Drag & Drop KI
 let dragTarget = null;
@@ -264,15 +259,16 @@ dropdownMenu.addEventListener("contextmenu", (e) => {
   }
 });
 
-deleteSceneButton.addEventListener("click", () => {
+deleteSceneButton.addEventListener("click", async () => {
   if (contextTargetIndex !== null) {
-    sceneData.splice(contextTargetIndex, 1);
-    localStorage.setItem("sceneData", JSON.stringify(sceneData));
-    loadScenes();
+    const sceneName = sceneData[contextTargetIndex].szenenName;
+    await deleteSceneFromServer(sceneName);
+    await loadScenesFromServer();
     contextMenu.style.display = "none";
-    showMessage("Szene gelöscht!");
+    showMessage(`Szene "${sceneName}" gelöscht!`);
   }
 });
+
 
 document.addEventListener("click", () => {
   contextMenu.style.display = "none";
@@ -425,4 +421,60 @@ async function exportToPDF() {
 
   pdf.save("szenen-export.pdf");
 }
-// Export to PDF Ende KI
+// Export to PDF Ende K
+
+// Fetch API in KLausur!!!!
+
+
+async function saveToServer(scene) {
+  const response = await fetch('http://localhost/szenenprojekt/save.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(scene)
+  });
+
+  const result = await response.json();
+  console.log("Serverantwort:", result);
+}
+
+
+
+async function loadScenesFromServer() {
+  const response = await fetch('http://localhost/szenenprojekt/load.php');
+  const scenes = await response.json();
+
+  dropdownMenu.innerHTML = "";
+  sceneData = scenes.map(scene => ({
+    szenenName: scene.name,
+    szenenInfo: scene.info,
+    Objekte: JSON.parse(scene.objekte)
+  }));
+
+  sceneData.forEach(scene => {
+    const li = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "#";
+    link.className = "scene-link";
+    link.textContent = scene.szenenName;
+    li.appendChild(link);
+    dropdownMenu.appendChild(li);
+  });
+
+  addSceneLinkFunctionality();
+}
+
+loadScenesFromServer();
+
+async function deleteSceneFromServer(name) {
+  const response = await fetch('http://localhost/szenenprojekt/delete.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ szenenName: name })
+  });
+  const result = await response.json();
+  console.log("Löschantwort:", result);
+}
+
+console.log("Hallo XAMPP!");
