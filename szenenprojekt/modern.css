@@ -197,6 +197,20 @@ button:hover {
   z-index: 1000;
 }
 
+#contextMenu button {
+    background-color: crimson;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    }
+    
+    #contextMenu button:hover {
+    background-color: darkred;
+    }
+
 /* ===== Footer ===== */
 .footer {
   text-align: center;
