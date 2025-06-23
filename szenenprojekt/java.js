@@ -52,9 +52,9 @@ for (let icon of icons) {
 function drawCanvas() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   canvasObjects.forEach((obj, index) => {
-    const img = new Image();
-    img.src = `images/${obj.objektName}.svg`;
-    img.onload = () => {
+    if (!obj.imgLoaded) return; // Skip if image not loaded
+
+const img = obj.img;
       const centerX = obj.x;
       const centerY = obj.y;
       const targetHeight = 50 * obj.scale;
@@ -73,7 +73,7 @@ function drawCanvas() {
       }
 
       context.restore();
-    };
+    
   });
 }
 
@@ -81,6 +81,27 @@ function drawCanvas() {
 function updateItemList() {
   itemList.innerHTML = "";
   canvasObjects.forEach((obj, index) => {
+    // Preload images and store them in the object
+
+    if (!obj.img) {
+
+      const img = new Image();
+
+      img.src = `images/${obj.objektName}.svg`;
+
+      img.onload = () => {
+
+        obj.imgLoaded = true; 
+
+        drawCanvas(); // Redraw the canvas when the image is loaded
+
+      };
+
+      obj.img = img;
+
+      obj.imgLoaded = false;
+
+    }
     const li = document.createElement("li");
     li.textContent = obj.objektName;
     li.classList.add("list-item");
@@ -131,7 +152,6 @@ saveButton.addEventListener("click", () => {
     }))
   };
 
-  console.log("Debug Szene wird gespeichert:", newScene);
   saveToServer(newScene);
 
 

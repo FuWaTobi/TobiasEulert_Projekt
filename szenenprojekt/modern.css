@@ -197,7 +197,7 @@ button:hover {
   z-index: 1000;
 }
 
-#contextMenu button {
+#deleteSceneButton {
     background-color: crimson;
     color: white;
     border: none;
@@ -207,7 +207,7 @@ button:hover {
     font-size: 0.875rem;
     }
     
-    #contextMenu button:hover {
+    #deleteSceneButton:hover {
     background-color: darkred;
     }
 
